@@ -11,3 +11,6 @@ Imports: devtools,
     whisker,
     synapser
 Additional_repositories: https://sage-bionetworks.github.io/ran
+Suggests: testthat
+URL: https://github.com/ki-tools/kitools
+BugReports: https://github.com/ki-tools/kitools/issues
