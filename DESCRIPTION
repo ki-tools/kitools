@@ -1,0 +1,13 @@
+Package: kitools
+Title: Tools for Analysis Workflows in Knowledge Integration
+Version: 0.0.1
+Authors@R: person("Ryan", "Hafen", email = "rhafen@gmail.com", role = c("aut", "cre"))
+Description: Provides utility functions for setting up Knowledge Integration (Ki) projects and supporting workflows within these projects, such as finding data and publishing results.
+Depends: R (>= 3.5.1)
+License: Apache License 2.0 | file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: devtools,
+    whisker,
+    synapser
+Additional_repositories: https://sage-bionetworks.github.io/ran
