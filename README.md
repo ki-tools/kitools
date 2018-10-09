@@ -57,6 +57,8 @@ This package provides utility functions that you must use to set up a new Ki ana
 
 Names for projects should be descriptive, use lowercase text, and use dashes to separate words. This convention should be used for naming all other files in an analysis as well.
 
+<!-- https://github.com/bcgov/BC-Policy-Framework-For-GitHub/blob/master/BC-Gov-Org-HowTo/Naming-Repos.md -->
+
 ### Working with data
 
 There are three main classes of data types in a Ki analysis:
