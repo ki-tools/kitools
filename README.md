@@ -21,6 +21,8 @@ General guidelines:
 - R Markdown documents and Shiny apps are published to the Ki RStudio Connect server and public / private viewing permissions are evaluated on a case-by-case basis. Utility functions and guidance for doing this are (TODO) provided as part of the kitools package. Source code for R Markdown documents and Shiny apps can be tracked in Git and published to Github.
 - Support for publishing results using other technologies such as Jupyter notebooks, etc., will be considered when / if demand is sufficient.
 
+![](https://user-images.githubusercontent.com/1275592/46691336-87a62100-cbb9-11e8-98c7-ba38455bb16f.png)
+
 ### Project setup
 
 This package provides utility functions that you must use to set up a new Ki analysis project. These set up minimal project structure, with the goal of giving you freedom while still maintaining standard behavior where necessary for Ki reproducibility and tracking needs.
