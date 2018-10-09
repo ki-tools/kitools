@@ -107,6 +107,6 @@ You should add a unit test to your package that will cause the package check to 
 ### Documentation
 
 - Use roxygen to document package functions, data, etc.
-- We recommend using [pkgdown](https://pkgdown.r-lib.org) for more user-friendly documentation. You can set this up with `usethis::use_pkgdown()`.
+- We recommend using [pkgdown](https://pkgdown.r-lib.org) to create more user-friendly documentation. You can set this up with `usethis::use_pkgdown()`.
 
 Please note that the 'kitools' project is released with a [Contributor Code of Conduct](.github/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms
