@@ -1,2 +1,8 @@
+^\.github$
+^LICENSE\.md$
+^codecov\.yml$
+^\.travis\.yml$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^CONTRIBUTING.md$
+^.*.code-workspace$
