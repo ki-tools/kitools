@@ -10,6 +10,13 @@ This package is in the extreme early development process and is expected to seri
 
 More documentation will be made available as the package matures.
 
+## Installation ##
+
+```r
+# install.packages("devtools")
+devtools::install_github("ki-tools/kitools")
+```
+
 ## Guidance for Ki Analysis Projects
 
 General guidelines:
