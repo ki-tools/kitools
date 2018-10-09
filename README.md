@@ -21,7 +21,7 @@ General guidelines:
 - R Markdown documents and Shiny apps are published to the Ki RStudio Connect server and public / private viewing permissions are evaluated on a case-by-case basis. Utility functions and guidance for doing this are (TODO) provided as part of the kitools package. Source code for R Markdown documents and Shiny apps can be tracked in Git and published to Github.
 - Support for publishing results using other technologies such as Jupyter notebooks, etc., will be considered when / if demand is sufficient.
 
-#### Project setup
+### Project setup
 
 This package provides utility functions that you must use to set up a new Ki analysis project. These set up minimal project structure, with the goal of giving you freedom while still maintaining standard behavior where necessary for Ki reproducibility and tracking needs.
 
@@ -44,11 +44,11 @@ This package provides utility functions that you must use to set up a new Ki ana
 
 <!-- http://projecttemplate.net/index.html -->
 
-#### Naming projects
+### Naming projects
 
 Names for projects should be descriptive, use lowercase text, and use dashes to separate words. This convention should be used for naming all other files in an analysis as well.
 
-#### Working with data
+### Working with data
 
 There are three main classes of data types in a Ki analysis:
 
@@ -66,19 +66,19 @@ Data management functions:
 
 Datasets that have been registered with your analysis project are updated in your "project_config.yml" file and you can view this file to see what's registered with your project.
 
-#### Working with code
+### Working with code
 
 On project creation, an "R" directory is created in which you can add R scripts. Here you are free organize your files however you like, but you are encouraged to use descriptive file names with all lowercase, no spaces, and underscores to separate words, followed with a capital ".R" file extension.
 
 An often-recommended approach to organizing R analysis code is to write your code as an R package. There are benefits to this approach, but we do not want to put too many constraints on project structure and there are also negative aspects of this approach. Instead, you should think about aspects of your analysis code that could be of general use beyond your analysis and create separate R packages for those separately as appropriate. For example, in the [CIDACS Brazil analysis](), general functionality for transforming DATASUS data was deemed to be generally useful as a [separate R package]() and developed accordingly.
 
-#### Style guide
+### Style guide
 
 To make it easier to work in a collaborative manner, we strongly recommend adhering to the [tidyverse style guide](http://style.tidyverse.org) for your analysis code.
 
 ## Guidance for Ki R Packages
 
-#### Package scaffolding
+### Package scaffolding
 
 If you find yourself in need to develop a Ki-related R package, this package provides utilities to bootstrap your package in a way that conforms with Ki R package development guidance.
 
@@ -98,13 +98,13 @@ The following steps are recommended to set up a ki R package:
 <!-- `use_tidy_issue_template()` -->
 <!-- `use_tidy_contributing()` -->
 
-#### Style guide
+### Style guide
 
 To make it easier to work in a collaborative manner, we adhere to the [tidyverse style guide](http://style.tidyverse.org).
 
 You should add a unit test to your package that will cause the package check to fail if the code does not meet the style guide. You can set this up with a utility function `kitools::use_lintr_test()`.
 
-#### Documentation
+### Documentation
 
 - Use roxygen to document package functions, data, etc.
 - We recommend using [pkgdown](https://pkgdown.r-lib.org) for more user-friendly documentation. You can set this up with `usethis::use_pkgdown()`.
