@@ -4,10 +4,17 @@
 \alias{create_analysis}
 \title{Scaffolding to create a Ki analysis project}
 \usage{
-create_analysis(path = ".")
+create_analysis(path = ".", title = NULL, synid = NULL,
+  use_packrat = FALSE)
 }
 \arguments{
 \item{path}{path to directory where project will be set up}
+
+\item{title}{a title for the project}
+
+\item{synid}{a synapse project ID for the project}
+
+\item{use_packrat}{should packrat be initialized for managing package dependencies? (NOT IMPLEMENTED)}
 }
 \description{
 Scaffolding to create a Ki analysis project

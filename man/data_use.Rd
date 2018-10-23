@@ -2,15 +2,20 @@
 % Please edit documentation in R/data.R
 \name{data_use}
 \alias{data_use}
-\title{Register a Synapse dataset with your analysis and download a local copy}
+\title{Load a dataset registered to your project}
 \usage{
-data_use(id, type = c("core", "discovered", "derived"))
+data_use(name, check_update = TRUE, read_fn = NULL)
 }
 \arguments{
-\item{id}{Synapse ID of dataset}
+\item{name}{name of the dataset registered with your project (matches the base name of the data file according to its path in project_config.yml)}
 
-\item{type}{one of "core", "discovered", or "derived"}
+\item{check_update}{should Synapse be checked to see if there is an updated file available? (default \code{TRUE})}
+
+\item{read_fn}{an optional function providing code to read in the data file (if not a supported "rds" or "csv" file or if custom reading options are desired). This function should take as a single parameter the path to the file, which will be supplied when it is called.}
 }
 \description{
-Register a Synapse dataset with your analysis and download a local copy
+Load a dataset registered to your project
+}
+\details{
+If the dataset has not been pulled from Synapse, you will first need to register it with your project using \code{\link{data_pull}} using its Synapse ID. If it has been previously pulled, a check against Synapse will be made for a newer version and the user will be prompted about whether to update the data.
 }

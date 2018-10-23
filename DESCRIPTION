@@ -14,7 +14,8 @@ Imports: devtools,
     usethis,
     yaml,
     git2r,
-    tools
+    tools,
+    readr
 Additional_repositories: https://sage-bionetworks.github.io/ran
 Suggests:
     testthat,

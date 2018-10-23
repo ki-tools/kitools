@@ -99,12 +99,12 @@ The following steps are recommended to set up a ki R package:
 
 - `usethis::create_package()` to create a package (if not already created)
 - `usethis::use_git()` to initialize a git repository
-- `usethis::use_github(organisation = "ki-tools")` to set a GitHub remote at `ki-tools/__package-name__`
-- `usethis::use_readme_md()` to create a basic README.md file
+- `usethis::use_readme_md()` to create a basic README.md file (or `usethis::use_readme_rmd()` for R Markdown)
 - `usethis::use_testthat()` to set up unit tests
-- `usethis::use_tidy_ci()` to set up travis-ci continuous integration and code coverage - be sure to add Travis and coverage
 - `kitools::use_lintr_test()` to add a unit test for correct code style
 - `kitools::use_apache_license()` to use the Apache 2.0 license (with copyright BMGF)
+- `usethis::use_github(organisation = "ki-tools")` to set a GitHub remote at `ki-tools/__package-name__`
+- `usethis::use_tidy_ci()` to set up travis-ci continuous integration and code coverage 
 
 <!-- `use_tidy_issue_template()` -->
 <!-- `use_tidy_contributing()` -->

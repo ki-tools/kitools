@@ -13,34 +13,43 @@ cfg_set_ <- function(dat) {
 #' Scaffolding to create a Ki analysis project
 #'
 #' @param path path to directory where project will be set up
+#' @param title a title for the project
+#' @param synid a synapse project ID for the project
+#' @param use_packrat should packrat be initialized for managing package dependencies? (NOT IMPLEMENTED)
 #' @importFrom usethis create_project use_git_ignore
 #' @importFrom git2r config
 #' @export
-create_analysis <- function(path = ".") {
-
-  message("Configuring project...")
+create_analysis <- function(path = ".", title = NULL, synid = NULL,
+  use_packrat = FALSE) {
 
   # TODO: check if project already exists and load it...
-  if (file.exists(file.path(path, "project_config.yml")))
-    stop(nice_text("It looks like a project has already been created. ",
-      "You can load the project with load_project()."), call. = FALSE)
+  if (file.exists(file.path(path, "project_config.yml"))) {
+    message(nice_text("It looks like a project has already been created. ",
+      "Loading the project..."), call. = FALSE)
+  }
+
+  message("Configuring project...")
 
   usethis::create_project(path, rstudio = FALSE, open = FALSE)
 
   # track contributing user via synapse ID in git global config custom field
   # (can't track in config because it's shared across multiple users)
-  cfg <- git2r::config(global = TRUE)
-  if (is.null(cfg[["global"]]$user.synapseid)) {
+  git_cfg <- git2r::config(global = TRUE)
+  if (is.null(git_cfg[["global"]]$user.synapseid)) {
     synapseid <- readline(prompt = "Enter your synapse ID: ")
     git2r::config(global = TRUE, "user.synapseid" = synapseid)
   }
 
-  title <- readline(prompt = "Enter the project title: ")
-  synid <- readline(prompt = paste0(nice_text(
-    "Enter the ID of the associated synapse space. ",
-    "This is required to push/pull data to/from Synapse. ",
-    "If you don't know the ID, just hit 'enter' and you can ",
-    "set it later with use_synapse(id):"), " "))
+  if (is.null(title))
+    title <- readline(prompt = "Enter the project title: ")
+
+  if (is.null(synid))
+    synid <- readline(prompt = paste0(nice_text(
+      "Enter the ID of the associated synapse space. ",
+      "This is required to push/pull data to/from Synapse. ",
+      "If you don't know the ID, just hit 'enter' and you can ",
+      "set it later with use_synapse(id):"), " "))
+
   if (synid == "")
     synid <- NULL
 
@@ -51,8 +60,7 @@ create_analysis <- function(path = ".") {
       core = NULL,
       discovered = NULL,
       derived = NULL
-    ),
-    packages = NULL
+    )
   )
 
   cfg_set_(cfg)
@@ -77,6 +85,13 @@ create_analysis <- function(path = ".") {
   usethis::use_git_ignore(c(
     ".Rproj.user", ".Rhistory", ".RData", ".rda", ".png", ".jpeg", ".pdf",
     "data/core", "data/derived", "data/discovered"))
+
+  # check Synapse login
+  a <- try(synapser::synGet("syn1906480", downloadFile = FALSE), silent = TRUE)
+  if (inherits(a, "try-error") && grepl("Please login", a)) {
+    message("Not logged into Synapse... Logging in...")
+    synapse_login()
+  }
 }
 
 get_config <- function() {
@@ -105,7 +120,16 @@ load_project <- function(load_packages = TRUE) {
   cfg <- yaml::read_yaml("project_config.yml")
   cfg_set_(cfg)
 
+  # check Synapse login
+  a <- try(synapser::synGet("syn1906480", downloadFile = FALSE), silent = TRUE)
+  if (inherits(a, "try-error") && grepl("Please login", a)) {
+    message("Not logged into Synapse... Logging in...")
+    synapse_login()
+  }
+
   # check if there is a Synapse ID and warn if not
+
+  message("Project '", cfg$title, "' loaded.")
 }
 
 #' Adds R package to project configuration file
