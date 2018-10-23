@@ -81,7 +81,7 @@ Datasets that have been registered with your analysis project are updated in you
 
 On project creation, an "R" directory is created in which you can add R scripts. Here you are free organize your files however you like, but you are encouraged to use descriptive file names with all lowercase, no spaces, and underscores to separate words, followed with a capital ".R" file extension.
 
-An often-recommended approach to organizing R analysis code is to write your code as an R package. There are benefits to this approach, but we do not want to put too many constraints on project structure and there are also negative aspects of this approach. Instead, you should think about aspects of your analysis code that could be of general use beyond your analysis and create separate R packages for those separately as appropriate. For example, in the [CIDACS Brazil analysis](), general functionality for transforming DATASUS data was deemed to be generally useful as a [separate R package]() and developed accordingly.
+An often-recommended approach to organizing R analysis code is to write your code as an R package. There are benefits to this approach, but we do not want to put too many constraints on project structure. There is nothing stopping you from making your code as a package, as the current project setup only requires a data and an `R` folder, a subset of an R package. However,if there are aspects of your analysis code that could be of general use beyond your analysis, you should think of creating separate R packages for those as appropriate. For example, in the [CIDACS Brazil analysis](), general functionality for transforming DATASUS data was deemed to be generally useful as a [separate R package]() and developed accordingly.
 
 ### Style guide
 
