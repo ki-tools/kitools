@@ -5,8 +5,9 @@
 \title{Publish a discovered or derived dataset to Synapse}
 \usage{
 data_publish(obj, name = NULL, type = c("discovered", "derived"),
-  file_type = c("rds", "csv", "txt"), used = NULL, executed = NULL,
-  activity = NULL, activity_name = NULL, activity_desc = NULL)
+  file_type = c("rds", "csv", "txt"), desc = NULL, used = NULL,
+  executed = NULL, activity = NULL, activity_name = NULL,
+  activity_desc = NULL)
 }
 \arguments{
 \item{obj}{object to publish or a path to the file in your project's data/discovered or data/derived folder}
@@ -16,6 +17,8 @@ data_publish(obj, name = NULL, type = c("discovered", "derived"),
 \item{type}{either "derived" or "discovered". If "discovered", it will go in data/discovered. If "derived", it will go in data/derived.}
 
 \item{file_type}{one of "rds", or "csv"}
+
+\item{desc}{description of the dataset}
 
 \item{used}{(optional) The Entity, Synapse ID, or URL used to create the object (can also be a list of these)}
 
