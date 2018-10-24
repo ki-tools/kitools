@@ -94,6 +94,11 @@ create_analysis <- function(path = ".", title = NULL, synid = NULL,
   }
 }
 
+get_syn_user <- function() {
+  git_cfg <- git2r::config(global = TRUE)
+  git_cfg[["global"]]$user.synapseid
+}
+
 get_config <- function() {
   cfg <- cfg_get_()
   if (is.null(cfg))
@@ -108,13 +113,13 @@ load_project <- function(load_packages = TRUE) {
 
   if (inherits(tryres, "try-error")) {
     msg <- gsub("Error : ", "", tryres)
-    stop(msg, " Use create_project() if you haven't created a project yet.",
+    stop(msg, " Use create_analysis() if you haven't created an analysis yet.",
       call. = FALSE)
   }
 
   if (!file.exists("project_config.yml"))
     stop(nice_text("Could not find a valid configuration. ",
-      "Has this project been initialized with create_project()?"),
+      "Has this project been initialized with create_analysis()?"),
       call. = FALSE)
 
   cfg <- yaml::read_yaml("project_config.yml")
@@ -157,5 +162,7 @@ synapse_login <- function(...) {
     args$email <- Sys.getenv("SYN_EMAIL")
   if (!is.null(Sys.getenv("SYN_PAT")) && is.null(args$apiKey))
     args$apiKey <- Sys.getenv("SYN_PAT")
-  invisible(do.call(synapser::synLogin, args))
+  res <- do.call(synapser::synLogin, args)
+  message("")
+  invisible(res)
 }

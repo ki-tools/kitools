@@ -55,6 +55,8 @@ data_pull <- function(id, type = c("core", "discovered", "derived")) {
 #' @importFrom utils menu
 #' @importFrom readr read_csv
 data_use <- function(name, check_update = TRUE, read_fn = NULL) {
+  cfg <- get_config()
+
   not_found <- FALSE
   is_syn_id <- grepl("^syn[0-9]", name)
 
@@ -87,13 +89,20 @@ data_use <- function(name, check_update = TRUE, read_fn = NULL) {
   if (not_found) {
     txt <- ifelse(is_syn_id, "Synapse ID", "name")
     stop(nice_text("Couldn't find a dataset registered to this ",
-      "project with ", txt, " '", name, "'. You can register a new ",
+      "project with ", txt, " '", name, "'. Check the name against",
+      "registered datasets with data_list(). You can register a new ",
       "dataset with data_publish() or pull a core dataset from ",
       "another Synapse space with data_pull()."))
   }
 
-  # check to see if there's a newer one on Synapse
-  if (check_update) {
+  if (!file.exists(entry$path)) {
+    message(nice_text("This data has not been downloaded from Synapse. ",
+      "Downloading now..."))
+    entity <- synapser::synGet(id,
+      downloadLocation = dirname(entry$path))
+    message("")
+  } else if (check_update) {
+    # check to see if there's a newer one on Synapse
     f <- synapser::synGet(id, downloadFile = FALSE)
     # Q: should we check md5 instead?
     synver <- f$properties$versionNumber
@@ -186,6 +195,7 @@ get_file_name <- function(path) {
 #' @param name name of the dataset being published
 #' @param type either "derived" or "discovered". If "discovered", it will go in data/discovered. If "derived", it will go in data/derived.
 #' @param file_type one of "rds", or "csv"
+#' @param desc description of the dataset
 #' @param used (optional) The Entity, Synapse ID, or URL used to create the object (can also be a list of these)
 #' @param executed (optional) The Entity, Synapse ID, or URL representing code executed to create the object (can also be a list of these)
 #' @param activity (optional) Activity object specifying the user's provenance
@@ -194,11 +204,14 @@ get_file_name <- function(path) {
 #' @export
 #' @importFrom synapser Folder File synStore
 data_publish <- function(obj, name = NULL, type = c("discovered", "derived"),
-  file_type = c("rds", "csv", "txt"), used = NULL, executed = NULL,
+  file_type = c("rds", "csv", "txt"), desc = NULL, used = NULL, executed = NULL,
   activity = NULL, activity_name = NULL, activity_desc = NULL) {
 
   type <- match.arg(type)
   file_type <- match.arg(file_type)
+
+  nrow <- NULL
+  ncol <- NULL
 
   if (is.character(obj)) {
     # it's a path, so we don't need to save the object, just publish
@@ -218,6 +231,9 @@ data_publish <- function(obj, name = NULL, type = c("discovered", "derived"),
 
     type <- ifelse(grepl("^data/discovered", path), "discovered", "derived")
   } else if (is.data.frame(obj)) {
+    nrow <- nrow(obj)
+    ncol <- ncol(obj)
+
     # save appropriate type
     if (is.null(name))
       stop("Must provide a 'name' for this object.")
@@ -241,6 +257,7 @@ data_publish <- function(obj, name = NULL, type = c("discovered", "derived"),
       }
     }
 
+    message("Saving to disk...")
     if (file_type == "rds") {
       saveRDS(obj, file = path)
     } else if (file_type %in% c("csv", "txt")) {
@@ -306,8 +323,12 @@ data_publish <- function(obj, name = NULL, type = c("discovered", "derived"),
     modified = res$properties$modifiedOn,
     version = res$properties$versionNumber)
 
-  # synapser::synSetAnnotations(file_id,
-  #   annotations=list(foo = "bar", baz = 1))
+  synapser::synSetAnnotations(file_id, annotations = list(
+    desc = desc,
+    published_by = get_syn_user(),
+    nrow = nrow,
+    ncol = ncol
+  ))
 
   cfg_set_(cfg)
 
