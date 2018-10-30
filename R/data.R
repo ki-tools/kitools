@@ -30,7 +30,8 @@ data_pull <- function(id, type = c("core", "discovered", "derived")) {
   }
 
   entity <- synapser::synGet(id,
-    downloadLocation = file.path("data", type))
+    downloadLocation = file.path("data", type),
+    ifcollision = "overwrite.local")
 
   cfg$data[[type]][[id]] <- list(
     path = paste("data", type, entity$properties$name, sep = "/"),
@@ -99,7 +100,8 @@ data_use <- function(name, check_update = TRUE, read_fn = NULL) {
     message(nice_text("This data has not been downloaded from Synapse. ",
       "Downloading now..."))
     entity <- synapser::synGet(id,
-      downloadLocation = dirname(entry$path))
+      downloadLocation = dirname(entry$path),
+      ifcollision = "overwrite.local")
     message("")
   } else if (check_update) {
     # check to see if there's a newer one on Synapse
@@ -114,7 +116,8 @@ data_use <- function(name, check_update = TRUE, read_fn = NULL) {
       if (ans == 1) {
         message("Downloading from Synapse...")
         entity <- synapser::synGet(id,
-          downloadLocation = dirname(entry$path))
+          downloadLocation = dirname(entry$path),
+          ifcollision = "overwrite.local")
         message("")
         message("Downloading Complete.")
       }
@@ -162,7 +165,8 @@ data_sync <- function() {
         message("Downloading ", f$properties$name, " to ",
           file.path("data", type), "...")
         entity <- synapser::synGet(id,
-          downloadLocation = file.path("data", type))
+          downloadLocation = file.path("data", type),
+          ifcollision = "overwrite.local")
       }
     }
   }
