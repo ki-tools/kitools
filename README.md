@@ -1,4 +1,4 @@
-NOTE: This package has been replaced with a newer version. See here:
+**NOTE**: This package has been replaced with a newer version. See here:
 
 https://github.com/ki-tools/kitools-r
 
