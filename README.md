@@ -1,6 +1,13 @@
-[![Travis build status](https://travis-ci.org/ki-tools/kitools.svg?branch=master)](https://travis-ci.org/ki-tools/kitools)
-[![Coverage status](https://codecov.io/gh/ki-tools/kitools/branch/master/graph/badge.svg)](https://codecov.io/github/ki-tools/kitools?branch=master)
-[![lifecycle](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+NOTE: This package has been replaced with a newer version. See here:
+
+https://github.com/ki-tools/kitools-r
+
+and here:
+
+https://ki-tools.github.io/kitools-r/
+
+
+
 
 # kitools
 
